@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Tienda Online - Café Premium y Accesorios</title>
+    <meta name="description" content="Tienda online de cafés premium y accesorios. Encuentra los mejores granos de café colombiano, arábica, robusta y todo lo necesario para preparar la taza perfecta.">
+    <meta name="keywords" content="café, café premium, granos de café, accesorios café, cafetera, molinillo, café colombiano, café arábica">
+    <meta name="author" content="Mi Tienda Online">
+    <meta property="og:title" content="Mi Tienda Online - Café Premium">
+    <meta property="og:description" content="Los mejores cafés premium y accesorios para preparar la taza perfecta">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link rel="canonical" href="https://mi-tienda-online.netlify.app">
+</head>
+<body>
+    <header>
+        <h1>Mi Tienda Online</h1>
+        <nav role="navigation" aria-label="Navegación principal">
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#reseñas">Reseñas</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li>
+                    <button id="carrito-btn" onclick="toggleCarrito()" aria-label="Abrir carrito de compras">
+                        🛒 Carrito (<span id="carrito-contador">0</span>)
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h2>Bienvenido a Mi Tienda Online</h2>
+                <p>Encuentra cafés premium y accesorios para preparar la taza perfecta.</p>
+            </div>
+        </section>
+        <section id="productos">
+            <h2>Nuestros Productos</h2>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/Nnxxfi0tuDg"
+                title="Preparando un Cafecito"
+                frameborder="0"
+                allowfullscreen
+                loading="lazy"></iframe>
+            </div>
+            <h3 style="margin-top:2em;">Productos Destacados</h3>
+            <div class="productos-container" style="gap: 2em 2em; flex-wrap: wrap;">
+                <!-- Los productos se cargarán dinámicamente desde la API -->
+            </div>
+        </section>
+        <section id="reseñas">
+            <h2>Reseñas de Clientes</h2>
+            <div class="reseñas-grid">
+                <article class="reseña">
+                    <p>"El mejor café que probé, y la atención es excelente."</p>
+                    <cite>- Lucía</cite>
+                </article>
+                <article class="reseña">
+                    <p>"Me encantó la variedad de productos y la calidad."</p>
+                    <cite>- Martín</cite>
+                </article>
+                <article class="reseña">
+                    <p>"El kit de prensa francesa es ideal para regalar."</p>
+                    <cite>- Sofía</cite>
+                </article>
+            </div>
+        </section>
+        <section id="contacto">
+            <h2 style="text-align:center; font-size:2.2em; margin-bottom:0.2em; color:#6d4c2b;">Contáctanos</h2>
+            <p style="text-align:center; margin-bottom:2em; color:#444;">
+                Estamos aquí para responder tus preguntas sobre nuestros cafés y productos
+            </p>
+            <div class="contact-info-container">
+                <div class="contact-info-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Email" class="contact-icon">
+                    <h4>Email</h4>
+                    <p>hola@cafearoma.com</p>
+                </div>
+                <div class="contact-info-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Teléfono" class="contact-icon">
+                    <h4>Teléfono</h4>
+                    <p>+11 2961 5206</p>
+                </div>
+                <div class="contact-info-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Ubicación" class="contact-icon">
+                    <h4>Ubicación</h4>
+                    <p>Av Rivadavia 2163, Buenos Aires</p>
+                </div>
+                <div class="contact-info-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/61/61205.png" alt="Horario" class="contact-icon">
+                    <h4>Horario</h4>
+                    <p>Lun - Vie: 8:00 - 18:00</p>
+                </div>
+            </div>
+            <form action="https://formspree.io/f/mwprwvog" method="POST" class="contact-form" novalidate>
+                <label for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required aria-describedby="nombre-error">
+                
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" placeholder="tu@email.com" required aria-describedby="email-error">
+                
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje aquí..." rows="4" required aria-describedby="mensaje-error"></textarea>
+                
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+        </section>
+    </main>
+    
+    <!-- Modal del Carrito -->
+    <div id="carrito-modal" class="carrito-modal" style="display: none;">
+        <div class="carrito-content">
+            <div class="carrito-header">
+                <h3>Carrito de Compras</h3>
+                <button onclick="toggleCarrito()" class="cerrar-carrito" aria-label="Cerrar carrito">×</button>
+            </div>
+            <div id="carrito-items" class="carrito-items">
+                <!-- Items del carrito se cargan dinámicamente -->
+            </div>
+            <div class="carrito-footer">
+                <div class="carrito-total">
+                    <strong>Total: <span id="carrito-total">$0.00</span></strong>
+                </div>
+                <div class="carrito-acciones">
+                    <button onclick="vaciarCarrito()" class="btn-vaciar">Vaciar Carrito</button>
+                    <button class="btn-comprar">Finalizar Compra</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Mi Tienda Online - Todos los derechos reservados</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
