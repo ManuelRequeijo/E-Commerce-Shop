@@ -155,6 +155,18 @@ function toggleCarrito() {
     }
 }
 
+// Cerrar carrito al hacer click fuera
+function cerrarCarritoAfuera(event) {
+    if (event.target === carritoModal) {
+        toggleCarrito();
+    }
+}
+
+// Agregar event listener para cerrar al hacer click afuera
+if (carritoModal) {
+    carritoModal.addEventListener('click', cerrarCarritoAfuera);
+}
+
 // Renderizar items del carrito
 function renderizarCarrito() {
     if (!carritoItems) return;
@@ -165,52 +177,69 @@ function renderizarCarrito() {
         return;
     }
     
-    const itemsHTML = carrito.map(item => `
+    const itemsHTML = carrito.map((item, index) => `
         <div class="carrito-item">
             <img src="${item.image}" alt="${item.title}" class="carrito-img">
             <div class="carrito-info">
                 <h4>${item.title.substring(0, 30)}...</h4>
                 <p>$${item.price}</p>
                 <div class="cantidad-controls">
-                    <button onclick="cambiarCantidad(${item.id}, -1)" aria-label="Disminuir cantidad">-</button>
+                    <button class="btn-cantidad" data-action="decrease" data-index="${index}" aria-label="Disminuir cantidad">-</button>
                     <span>${item.cantidad}</span>
-                    <button onclick="cambiarCantidad(${item.id}, 1)" aria-label="Aumentar cantidad">+</button>
+                    <button class="btn-cantidad" data-action="increase" data-index="${index}" aria-label="Aumentar cantidad">+</button>
                 </div>
             </div>
-            <button onclick="eliminarDelCarrito(${item.id})" class="btn-eliminar" aria-label="Eliminar ${item.title}">×</button>
+            <button class="btn-eliminar" data-index="${index}" aria-label="Eliminar ${item.title}">×</button>
         </div>
     `).join('');
     
     carritoItems.innerHTML = itemsHTML;
     
+    // Agregar event listeners a los botones
+    document.querySelectorAll('.btn-cantidad').forEach(btn => {
+        btn.addEventListener('click', manejarCantidad);
+    });
+    
+    document.querySelectorAll('.btn-eliminar').forEach(btn => {
+        btn.addEventListener('click', manejarEliminar);
+    });
+    
     const total = carrito.reduce((sum, item) => sum + (item.price * item.cantidad), 0);
     carritoTotal.textContent = `$${total.toFixed(2)}`;
 }
 
-// Cambiar cantidad de producto
-function cambiarCantidad(id, cambio) {
-    const item = carrito.find(item => item.id === id);
-    if (!item) return;
+// Manejar cambios de cantidad
+function manejarCantidad(e) {
+    const index = parseInt(e.target.dataset.index);
+    const action = e.target.dataset.action;
     
-    item.cantidad += cambio;
-    
-    if (item.cantidad <= 0) {
-        eliminarDelCarrito(id);
-    } else {
-        guardarCarrito();
-        actualizarContadorCarrito();
-        renderizarCarrito();
+    if (action === 'increase') {
+        carrito[index].cantidad++;
+    } else if (action === 'decrease') {
+        if (carrito[index].cantidad > 1) {
+            carrito[index].cantidad--;
+        } else {
+            carrito.splice(index, 1);
+        }
     }
+    
+    guardarCarrito();
+    actualizarContadorCarrito();
+    renderizarCarrito();
 }
 
-// Eliminar producto del carrito
-function eliminarDelCarrito(id) {
-    carrito = carrito.filter(item => item.id !== id);
+// Manejar eliminación de productos
+function manejarEliminar(e) {
+    const index = parseInt(e.target.dataset.index);
+    carrito.splice(index, 1);
+    
     guardarCarrito();
     actualizarContadorCarrito();
     renderizarCarrito();
     mostrarMensaje('Producto eliminado del carrito');
 }
+
+
 
 // Vaciar carrito
 function vaciarCarrito() {
