@@ -207,17 +207,17 @@ main {
     background: rgba(0,0,0,0.5);
     z-index: 1000;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: stretch;
+    justify-content: flex-end;
 }
 
 .carrito-content {
     background: #fff;
-    border-radius: 8px;
-    max-width: 500px;
-    width: 90%;
-    max-height: 80vh;
+    border-radius: 0;
+    width: 400px;
+    height: 100vh;
     overflow-y: auto;
+    box-shadow: -4px 0 15px rgba(0,0,0,0.3);
 }
 
 .carrito-header {
@@ -233,7 +233,13 @@ main {
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    color: #666;
+    color: #f44336;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.cerrar-carrito:hover {
+    color: #d32f2f;
 }
 
 .carrito-items {
@@ -353,8 +359,12 @@ main {
     }
     
     .carrito-content {
-        width: 95%;
-        max-height: 90vh;
+        width: 100%;
+        height: 100vh;
+    }
+    
+    .carrito-modal {
+        justify-content: center;
     }
     
     .carrito-item {
