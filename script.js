@@ -10,10 +10,32 @@ const carritoItems = document.getElementById('carrito-items');
 const carritoTotal = document.getElementById('carrito-total');
 const formularioContacto = document.querySelector('.contact-form');
 
+// Generar estrellas dinámicamente
+function generarEstrellas() {
+    const resenas = document.querySelectorAll('.reseña[data-rating]');
+    
+    resenas.forEach(resena => {
+        const rating = parseInt(resena.dataset.rating);
+        const starsContainer = resena.querySelector('.review-stars');
+        
+        if (starsContainer) {
+            let starsHTML = '';
+            
+            for (let i = 1; i <= 5; i++) {
+                starsHTML += `<i class="fa-${i <= rating ? 'solid' : 'regular'} fa-star"></i>`;
+            }
+            
+            starsContainer.innerHTML = starsHTML;
+            starsContainer.setAttribute('aria-label', `${rating} de 5 estrellas`);
+        }
+    });
+}
+
 // Inicializar aplicación
 document.addEventListener('DOMContentLoaded', () => {
     actualizarContadorCarrito();
     validarFormulario();
+    generarEstrellas(); // Generar estrellas dinámicamente
     // cargarProductosAPI(); // Desactivado - solo usar productos originales
     
     // Agregar skip link para accesibilidad
