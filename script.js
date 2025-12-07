@@ -12,9 +12,9 @@ const formularioContacto = document.querySelector('.contact-form');
 
 // Inicializar aplicación
 document.addEventListener('DOMContentLoaded', () => {
-    cargarProductosAPI();
     actualizarContadorCarrito();
     validarFormulario();
+    cargarProductosAPI(); // Cargar productos adicionales de la API
     
     // Agregar skip link para accesibilidad
     const skipLink = document.createElement('a');
@@ -28,40 +28,67 @@ document.addEventListener('DOMContentLoaded', () => {
     if (main) main.id = 'main';
 });
 
-// Consumir API de productos
+// Consumir API de productos (opcional - para productos adicionales)
 async function cargarProductosAPI() {
     try {
-        const response = await fetch('https://fakestoreapi.com/products?limit=8');
+        const response = await fetch('https://fakestoreapi.com/products?limit=4');
         productos = await response.json();
-        renderizarProductos();
+        renderizarProductosAPI();
     } catch (error) {
-        console.error('Error al cargar productos:', error);
-        // Mantener productos existentes si falla la API
+        console.error('Error al cargar productos de la API:', error);
     }
 }
 
-// Renderizar productos en el DOM
-function renderizarProductos() {
-    if (!productosContainer) return;
+// Renderizar productos adicionales de la API
+function renderizarProductosAPI() {
+    // Crear una sección adicional para productos de la API
+    const seccionProductos = document.getElementById('productos');
+    if (!seccionProductos) return;
     
-    const productosHTML = productos.map(producto => `
-        <div class="card">
-            <img src="${producto.image}" alt="${producto.title}" loading="lazy">
-            <h3>${producto.title.substring(0, 50)}...</h3>
-            <p>${producto.description.substring(0, 80)}...</p>
-            <strong>$${producto.price}</strong>
-            <button class="btn-agregar" onclick="agregarAlCarrito(${producto.id})" aria-label="Agregar ${producto.title} al carrito">
-                Agregar al Carrito
-            </button>
+    const productosAPIHTML = `
+        <h3 style="margin-top:2em;">Más Productos</h3>
+        <div class="productos-container" style="gap: 2em 2em; flex-wrap: wrap;">
+            ${productos.map(producto => `
+                <div class="card">
+                    <img src="${producto.image}" alt="${producto.title}" loading="lazy">
+                    <h3>${producto.title.substring(0, 30)}...</h3>
+                    <p>${producto.description.substring(0, 60)}...</p>
+                    <strong>$${producto.price}</strong>
+                    <button class="btn-agregar" onclick="agregarAlCarrito(${producto.id})" aria-label="Agregar ${producto.title} al carrito">
+                        Agregar al Carrito
+                    </button>
+                </div>
+            `).join('')}
         </div>
-    `).join('');
+    `;
     
-    productosContainer.innerHTML = productosHTML;
+    seccionProductos.insertAdjacentHTML('beforeend', productosAPIHTML);
 }
+
+// Productos locales (los que ya tenías)
+const productosLocales = {
+    'cafe-colombiano': { id: 'cafe-colombiano', title: 'Café Colombiano', price: 2.99, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/cafe-colombiano-sZLIqXYAdqlSMNGLpwSvs6reYmH9oa.jpg' },
+    'espresso-italiano': { id: 'espresso-italiano', title: 'Espresso Italiano', price: 2.79, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/espresso-italiano-DJPY9kH4xtuDLg1fS9yXHlmpR7s5Ck.jpg' },
+    'cafe-robusta': { id: 'cafe-robusta', title: 'Café Robusta', price: 3.99, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/cafe-robusta-premium-oUszLqP1TSOGXTwBZEnADeZW9mGBwy.jpg' },
+    'cafe-arabica': { id: 'cafe-arabica', title: 'Café Arábica', price: 4.69, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/cafe-arabica-VvQVJkJ7P03tqDOLx20sIRlshb8Xu6.jpg' },
+    'cafetera-francesa': { id: 'cafetera-francesa', title: 'Cafetera Francesa', price: 34.99, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/cafetera-francesa-m8i6gESiSE29BOIgp1YCt2WJtz38QA.jpg' },
+    'molinillo-manual': { id: 'molinillo-manual', title: 'Molinillo Manual', price: 29.99, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/molinillo-manual-53GTWlt5Xqc1ABqUUNPjVtVVnyfwDB.jpg' },
+    'cafetera-moka': { id: 'cafetera-moka', title: 'Cafetera Moka', price: 39.99, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/cafetera-moka-AKqj21CACUnDHKw4uFp2ZUifUB3K0V.jpg' },
+    'chemex': { id: 'chemex', title: 'Chemex', price: 44.99, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/chemex-YqywLTCPO1wkQObX9ZjJvJH1mUoq06.jpg' }
+};
 
 // Agregar producto al carrito
 function agregarAlCarrito(id) {
-    const producto = productos.find(p => p.id === id);
+    let producto;
+    
+    // Buscar en productos locales primero
+    if (productosLocales[id]) {
+        producto = productosLocales[id];
+    } else {
+        // Buscar en productos de la API
+        producto = productos.find(p => p.id === id);
+    }
+    
     if (!producto) return;
     
     const itemExistente = carrito.find(item => item.id === id);

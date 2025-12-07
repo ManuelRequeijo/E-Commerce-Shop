@@ -47,9 +47,83 @@
                 allowfullscreen
                 loading="lazy"></iframe>
             </div>
-            <h3 style="margin-top:2em;">Productos Destacados</h3>
+            <h3 style="margin-top:2em;">Granos de Café Premium</h3>
             <div class="productos-container" style="gap: 2em 2em; flex-wrap: wrap;">
-                <!-- Los productos se cargarán dinámicamente desde la API -->
+                <div class="card">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/cafe-colombiano-sZLIqXYAdqlSMNGLpwSvs6reYmH9oa.jpg" alt="Café Colombiano">
+                    <h3>Café Colombiano</h3>
+                    <p>Notas dulces y afrutadas con cuerpo medio</p>
+                    <strong>$2.99</strong>
+                    <button class="btn-agregar" onclick="agregarAlCarrito('cafe-colombiano')" aria-label="Agregar Café Colombiano al carrito">
+                        Agregar al Carrito
+                    </button>
+                </div>
+                <div class="card">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/espresso-italiano-DJPY9kH4xtuDLg1fS9yXHlmpR7s5Ck.jpg" alt="Espresso Italiano">
+                    <h3>Espresso Italiano</h3>
+                    <p>Intenso y aromático, perfecto para espresso</p>
+                    <strong>$2.79</strong>
+                    <button class="btn-agregar" onclick="agregarAlCarrito('espresso-italiano')" aria-label="Agregar Espresso Italiano al carrito">
+                        Agregar al Carrito
+                    </button>
+                </div>
+                <div class="card">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/cafe-robusta-premium-oUszLqP1TSOGXTwBZEnADeZW9mGBwy.jpg" alt="Café Robusta">
+                    <h3>Café Robusta</h3>
+                    <p>Granos de café premium</p>
+                    <strong>$3.99</strong>
+                    <button class="btn-agregar" onclick="agregarAlCarrito('cafe-robusta')" aria-label="Agregar Café Robusta al carrito">
+                        Agregar al Carrito
+                    </button>
+                </div>
+                <div class="card">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/cafe-arabica-VvQVJkJ7P03tqDOLx20sIRlshb8Xu6.jpg" alt="Granos Arábica">
+                    <h3>Café Arábica</h3>
+                    <p>Suave y equilibrado con acidez brillante</p>
+                    <strong>$4.69</strong>
+                    <button class="btn-agregar" onclick="agregarAlCarrito('cafe-arabica')" aria-label="Agregar Café Arábica al carrito">
+                        Agregar al Carrito
+                    </button>
+                </div>
+            </div>
+            <h3 style="margin-top:2em;">Accesorios para Preparar Café</h3>
+            <div class="productos-container" style="gap: 2em 2em; flex-wrap: wrap;">
+                <div class="card">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/cafetera-francesa-m8i6gESiSE29BOIgp1YCt2WJtz38QA.jpg" alt="Cafetera Francesa">
+                    <h3>Cafetera Francesa</h3>
+                    <p>Método clásico para café con cuerpo completo</p>
+                    <strong>$34.99</strong>
+                    <button class="btn-agregar" onclick="agregarAlCarrito('cafetera-francesa')" aria-label="Agregar Cafetera Francesa al carrito">
+                        Agregar al Carrito
+                    </button>
+                </div>
+                <div class="card">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/molinillo-manual-53GTWlt5Xqc1ABqUUNPjVtVVnyfwDB.jpg" alt="Molinillo Manual">
+                    <h3>Molinillo Manual</h3>
+                    <p>Molienda precisa y consistente</p>
+                    <strong>$29.99</strong>
+                    <button class="btn-agregar" onclick="agregarAlCarrito('molinillo-manual')" aria-label="Agregar Molinillo Manual al carrito">
+                        Agregar al Carrito
+                    </button>
+                </div>
+                <div class="card">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/cafetera-moka-AKqj21CACUnDHKw4uFp2ZUifUB3K0V.jpg" alt="Cafetera Moka">
+                    <h3>Cafetera Moka</h3>
+                    <p>Espresso italiano tradicional en casa</p>
+                    <strong>$39.99</strong>
+                    <button class="btn-agregar" onclick="agregarAlCarrito('cafetera-moka')" aria-label="Agregar Cafetera Moka al carrito">
+                        Agregar al Carrito
+                    </button>
+                </div>
+                <div class="card">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/chemex-YqywLTCPO1wkQObX9ZjJvJH1mUoq06.jpg" alt="Chemex">
+                    <h3>Chemex</h3>
+                    <p>Elegancia y pureza en cada taza</p>
+                    <strong>$44.99</strong>
+                    <button class="btn-agregar" onclick="agregarAlCarrito('chemex')" aria-label="Agregar Chemex al carrito">
+                        Agregar al Carrito
+                    </button>
+                </div>
             </div>
         </section>
         <section id="reseñas">
