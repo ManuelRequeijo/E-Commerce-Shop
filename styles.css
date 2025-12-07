@@ -347,6 +347,11 @@ main {
     .card { max-width: 90%; }
     nav ul { gap: 0.8rem; flex-wrap: wrap; }
     
+    .map-container {
+        padding-bottom: 60%;
+        margin: 15px;
+    }
+    
     .carrito-content {
         width: 95%;
         max-height: 90vh;
@@ -399,11 +404,43 @@ main {
     top: 6px;
 }
 
+/* Estrellas en reseñas */
+.review-stars {
+    margin: 0 0 8px 0;
+    color: #ffd861;
+    font-size: 0.9rem;
+}
+
+.review-stars i {
+    margin-right: 2px;
+}
+
 /* Mejoras de contraste */
 .reseña cite {
     font-style: italic;
     color: #666;
     font-weight: 600;
+}
+
+/* Mapa de Google Maps */
+.map-container {
+    position: relative;
+    padding-bottom: 50%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 2px solid #ddd;
+    margin: 20px auto;
+    max-width: 900px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 /* Estados de hover mejorados */
