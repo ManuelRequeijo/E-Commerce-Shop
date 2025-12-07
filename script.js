@@ -14,7 +14,7 @@ const formularioContacto = document.querySelector('.contact-form');
 document.addEventListener('DOMContentLoaded', () => {
     actualizarContadorCarrito();
     validarFormulario();
-    cargarProductosAPI(); // Cargar productos adicionales de la API
+    // cargarProductosAPI(); // Desactivado - solo usar productos originales
     
     // Agregar skip link para accesibilidad
     const skipLink = document.createElement('a');
